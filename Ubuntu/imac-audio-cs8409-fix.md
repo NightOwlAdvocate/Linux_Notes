@@ -1,5 +1,8 @@
 # Fixing No Sound on Ubuntu 24.04.4 LTS on iMac18,1 with Cirrus CS8409
 
+> **Update — 5 November 2026:** This guide records the earlier successful repair on **kernel 6.17.0-35**. For Ubuntu 24.04 HWE **7.0.0-42**, do **not** blindly repeat the `git pull` / `dkms install` steps below: the older driver failed to build and blocked APT kernel configuration. See the [new, experimentally verified iMac18,1 Linux 7.0.0-42 repair](imac18-1-cs8409-linux-7.0.0-42-2026-11-05.md), which uses matching Ubuntu HWE source and an isolated build. The 7.0 module was installed manually and is **not automatically maintained by DKMS**.
+
+
 ## System
 
 ```text
