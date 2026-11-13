@@ -1,0 +1,36 @@
+name: healthcheck tests
+
+on:
+  push:
+    paths:
+      - "tools/linux-healthcheck/**"
+      - ".github/workflows/healthcheck-tests.yml"
+  pull_request:
+    paths:
+      - "tools/linux-healthcheck/**"
+      - ".github/workflows/healthcheck-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run unit tests
+        working-directory: tools/linux-healthcheck
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
+      - name: Build and smoke-test zipapp
+        working-directory: tools/linux-healthcheck
+        run: |
+          python scripts/build_zipapp.py
+          python dist/linux-healthcheck.pyz --check system --json
