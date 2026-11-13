@@ -15,15 +15,17 @@ permissions:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    # Pin 24.04 while Python 3.9 remains part of the supported portability range.
+    # ubuntu-latest currently resolves to 26.04, whose tool cache has no 3.9 build.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.11", "3.13"]
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run unit tests
