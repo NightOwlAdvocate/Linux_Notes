@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linux-healthcheck"
+version = "0.1.0"
+description = "Portable, read-only Linux health check CLI"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Anastasiia Ronenko" },
+]
+classifiers = [
+  "Environment :: Console",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = []
+
+[project.scripts]
+linux-healthcheck = "linux_healthcheck.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
